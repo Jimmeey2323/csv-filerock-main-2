@@ -468,13 +468,19 @@ export const processData = (
                       const b = new Date(dateB);
                       return a.getTime() >= b.getTime();
                     }
+
+                    function isDateOnOrAfter(dateA: string, dateB: string): boolean {
+                      if (!dateA || !dateB) return false;
+                      const a = new Date(dateA);
+                      const b = new Date(dateB);
+                      return a.getTime() >= b.getTime();
+                    }
                     
-                    // UPDATED CONVERSION CONDITIONS:
-                    // 1. Sale date >= First visit date (changed from > to >=)                    
-                    // 1. Sale date >= First visit date
-                    const saleDate = sale['Date'] || '';
-                    const firstVisitDate = matchingClient['First visit at'];
-                    const saleDateAfterVisit = isDateOnOrAfter(saleDate, firstVisitDate);
+                  // UPDATED CONVERSION CONDITIONS:
+                 // 1. Sale date >= First visit date
+                  const saleDate = sale['Date'] || '';
+                  const firstVisitDate = matchingClient['First visit at'];
+                  const saleDateAfterVisit = isDateOnOrAfter(saleDate, firstVisitDate);
                     
                     // 2. Category doesn't contain 'money-credits', 'retail', or 'product' (case insensitive)
                     const category = (sale['Category'] || '').toLowerCase();
